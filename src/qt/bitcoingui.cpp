@@ -443,10 +443,10 @@ void BitcoinGUI::createToolBars()
     toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
     toolbar->setObjectName("tabs");
-    toolbar->setStyleSheet("QToolButton { color: #ffffff; font-size: 14px; font-family: Georgia,Times,Times New Roman,serif; font-weight: 400; font-variant: small-caps; padding: 3px; border: none;}"
+    toolbar->setStyleSheet("QToolButton { color: #ffffff; font-size: 14px; font-weight: 400; font-variant: small-caps; padding: 3px; border: none;}"
                            "QToolButton:hover { background-color: #8f8f8f; border: none; padding-top: 3px; padding-bottom: 3px; }"
-                           "QToolButton:checked { background-color: #780002; border: none; padding-top: 3px; padding-bottom: 3px; }"
-                           "QToolButton:pressed { background-color: #780002; border: none; padding-top: 3px; padding-bottom: 3px; }"
+                           "QToolButton:checked { background-color: #08DDD0; border: none; padding-top: 3px; padding-bottom: 3px; }"
+                           "QToolButton:pressed { background-color: #08DDD0; border: none; padding-top: 3px; padding-bottom: 3px; }"
                            "#tabs { color: #ffffff; background-color: #000000; border: none; padding-top: 0px; padding-bottom: 0px; }");
 
     QLabel* header = new QLabel();
@@ -868,7 +868,7 @@ void BitcoinGUI::incomingTransaction(const QModelIndex & parent, int start, int 
     TransactionTableModel *ttm = walletModel->getTransactionTableModel();
 
     qint64 amount = ttm->index(start, TransactionTableModel::Amount, parent)
-                    .data(Qt::EditRole).toULongLong();    
+                    .data(Qt::EditRole).toULongLong();
     QString date = ttm->index(start, TransactionTableModel::Date, parent)
                     .data().toString();
     QString type = ttm->index(start, TransactionTableModel::Type, parent)
