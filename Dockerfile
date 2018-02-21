@@ -23,4 +23,5 @@ RUN apt-get install -y libssl1.0.0 libdb5.3++ libboost-system1.58.0 libboost-fil
 COPY --from=xylo_build /opt/xylo /opt/xylo
 EXPOSE 7875
 VOLUME ["/opt/xylo/data", "/opt/xylo/conf"]
-CMD ["/opt/xylo/bin/XYLOd", "-datadir=/opt/xylo/data", "-conf=/opt/xylo/conf/XYLO.conf", "-printtoconsole", "-server"]
+ENTRYPOINT ["/opt/xylo/bin/XYLOd", "-datadir=/opt/xylo/data", "-conf=/opt/xylo/conf/XYLO.conf", "-printtoconsole"]
+CMD ["-server"]
