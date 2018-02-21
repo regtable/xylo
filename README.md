@@ -25,3 +25,14 @@ XYLO includes an Address Index feature, based on the address index API (searchra
 
 Initialize the Address Index By Running with -reindexaddr Command Line Argument.  It may take 10-15 minutes to build the initial index.
 
+Docker
+======
+
+This repository contains a Dockerfile to build a slim image containing only the XYLOd binary and its dependencies.
+The slim image is created through a multistage process by first creating a full build image, compiling the binary
+in this image and then creating the slim image by copying the binary form the build image.
+
+A precompiled image can be pulled from [Docker Hub](https://hub.docker.com/r/robkaandorp/xylo/).
+
+To build the image yourself run the following docker command:
+`docker build -t xylo https://github.com/robkaandorp/xylo.git`
