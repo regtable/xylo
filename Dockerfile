@@ -28,4 +28,4 @@ RUN echo "/opt/xylo/bin/XYLOd -datadir=/opt/xylo/data -conf=/opt/xylo/conf/XYLO.
 RUN chmod 755 /opt/xylo/bin/start.sh
 EXPOSE 7875
 VOLUME ["/opt/xylo/data", "/opt/xylo/conf"]
-ENTRYPOINT ["/opt/xylo/bin/start.sh"]
+CMD ["/opt/xylo/bin/start.sh"]
