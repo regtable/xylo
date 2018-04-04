@@ -1,4 +1,4 @@
-FROM ubuntu:16.04 AS xylo_build
+FROM ubuntu:latest AS xylo_build
 RUN apt-get update && apt-get install -y apt-utils
 RUN apt-get upgrade -y
 RUN apt-get install -y autoconf autogen build-essential libssl-dev libdb++-dev libboost-all-dev libqrencode-dev libgmp-dev
@@ -16,12 +16,16 @@ RUN mkdir /opt/xylo/conf
 WORKDIR /opt/xylo
 RUN rm -rf /opt/xylo/src
 
-FROM ubuntu:16.04
+FROM ubuntu:latest
 RUN apt-get update && apt-get install -y apt-utils
 RUN apt-get upgrade -y
-RUN apt-get install -y libssl1.0.0 libdb5.3++ libboost-system1.58.0 libboost-filesystem1.58.0 libboost-program-options1.58.0 libboost-thread1.58.0 libqrencode3 libgmp10
+RUN apt-get install -y libssl1.0.0 libdb5.3++ libboost-system1.58.0 libboost-filesystem1.58.0 libboost-program-options1.58.0 libboost-thread1.58.0 libqrencode3 libgmp10 ntp
+RUN rm -rf /var/lib/apt/lists/*
 COPY --from=xylo_build /opt/xylo /opt/xylo
+RUN echo "#!/bin/bash" > /opt/xylo/bin/start.sh
+RUN echo "ntpd -gq && service ntp start" >> /opt/xylo/bin/start.sh
+RUN echo "/opt/xylo/bin/XYLOd -datadir=/opt/xylo/data -conf=/opt/xylo/conf/XYLO.conf -printtoconsole -server" >> /opt/xylo/bin/start.sh
+RUN chmod 755 /opt/xylo/bin/start.sh
 EXPOSE 7875
 VOLUME ["/opt/xylo/data", "/opt/xylo/conf"]
-ENTRYPOINT ["/opt/xylo/bin/XYLOd", "-datadir=/opt/xylo/data", "-conf=/opt/xylo/conf/XYLO.conf", "-printtoconsole"]
-CMD ["-server"]
+ENTRYPOINT ["/opt/xylo/bin/start.sh"]
